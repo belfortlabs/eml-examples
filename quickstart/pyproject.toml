@@ -1,0 +1,35 @@
+[project]
+name = "belfort-ml-quickstart"
+version = "0.1.0"
+description = "Classify encrypted MNIST digits with Belfort"
+requires-python = ">=3.12"
+dependencies = [
+    # In medusa-deployment these pins are 0.0.0, which PyPI never has. Pin a
+    # copy (build/examples) to a deployment's release or to local wheels with:
+    #   uv run --script scripts/sync_examples.py --stage staging   # or main
+    #   uv run --script scripts/sync_examples.py --from-wheels dist/wheels
+    "belfort-ml==0.2.0",
+    "belfort-ml-client==0.2.0",
+    "huggingface_hub",
+    "numpy",
+    "pillow",
+    "pyarrow",
+    "safetensors",
+    # belfort-ml and belfort-ml-client pin this at their own version; uv only
+    # installs a pre-release (a dev or rc release) the project names itself.
+    "belfort-ml-bucket==0.2.0",
+    # Named here so that on Linux it comes from the CPU index below: compiling
+    # a model needs no CUDA, and PyPI's Linux build brings several GB of it.
+    "torch==2.13.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu", marker = "sys_platform == 'linux'" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true

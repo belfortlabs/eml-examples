@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+build/
+cyclops-client/
+uv.lock
+.secret-seed-*
