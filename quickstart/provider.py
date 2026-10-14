@@ -23,7 +23,9 @@ def compiled_model(provider: belfort_ml.Provider) -> belfort_ml.Model:
     artifacts = belfort_ml.compile(
         load_model(), calibration[0], NAME, "./build", calibration_inputs=calibration
     )
-    return provider.models.get(name=NAME, create_from=artifacts, timeout=1800)
+    return provider.models.get(
+        name=NAME, create_from=artifacts, timeout=1800, use_composite_relu=False
+    )
 
 
 def serve(model: belfort_ml.Model) -> None:

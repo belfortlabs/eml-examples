@@ -32,7 +32,7 @@ uv run provider.py compile
 ```
 
 `provider.py` compiles the pretrained model from `mnist.py`, calibrated on the
-last 64 MNIST test images, and uploads it. Running it again reuses the compiled
+last 512 MNIST test images, and uploads it. Running it again reuses the compiled
 model.
 
 ## 3. Serve
