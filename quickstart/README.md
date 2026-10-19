@@ -43,10 +43,10 @@ In the same terminal:
 uv run provider.py serve
 ```
 
-It prints `BELFORT_CLIENT_TOKEN=...`, starts a GPU deploy that serves that
-token's keys, and waits for Enter. The deploy stops when you press Enter, or
-after 30 minutes; you are charged for the time it ran, rounded up to 10
-minutes, at most 3 credits.
+It prints an `export BELFORT_CLIENT_TOKEN=...` line to run in the client
+terminal, starts a GPU deploy that serves that token's keys, and waits for
+Enter. The deploy stops when you press Enter, or after 30 minutes; you are
+charged for the time it ran, rounded up to 10 minutes.
 
 ## 4. Run the end client
 

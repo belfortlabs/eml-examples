@@ -1,7 +1,7 @@
 """The end client: encrypt MNIST test images, have the deploy classify them,
 and decrypt the scores.
 
-    python client.py [COUNT]
+    uv run client.py [COUNT]
 
 The secret key derives from a seed this script keeps in a local file per
 token, so running it again on the same token reuses the key pair.

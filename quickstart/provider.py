@@ -1,7 +1,7 @@
 """The model provider: compile the model, then serve it to one end client.
 
-    python provider.py compile   # compile the model on Belfort
-    python provider.py serve     # mint a client token and start a GPU deploy
+    uv run provider.py compile   # compile the model on Belfort
+    uv run provider.py serve     # mint a client token and start a GPU deploy
 
 Both are safe to run again: a model already compiled from the same MLIR is
 reused, not compiled again.
@@ -30,7 +30,11 @@ def compiled_model(provider: belfort_ml.Provider) -> belfort_ml.Model:
 
 def serve(model: belfort_ml.Model) -> None:
     token = model.create_client(label="quickstart")
-    print(f"\nBELFORT_CLIENT_TOKEN={token.token}\n", flush=True)
+    print(
+        f"\nRun this in the client terminal:\n"
+        f"  export BELFORT_CLIENT_TOKEN={token.token}\n",
+        flush=True,
+    )
     with model.deploy(key_set=token, max_lifetime=timedelta(minutes=30), timeout=1800):
         print("deploy ready")
         input("Press Enter to stop the deploy...")
