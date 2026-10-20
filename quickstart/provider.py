@@ -35,9 +35,9 @@ def serve(model: belfort_ml.Model) -> None:
         f"  export BELFORT_CLIENT_TOKEN={token.token}\n",
         flush=True,
     )
+    print("Starting the deploy; Ctrl-C stops it.", flush=True)
     with model.deploy(key_set=token, max_lifetime=timedelta(minutes=30), timeout=1800):
-        print("deploy ready")
-        input("Press Enter to stop the deploy...")
+        input("Deploy ready. Press Enter to stop it...")
 
 
 if __name__ == "__main__":
