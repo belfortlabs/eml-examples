@@ -43,24 +43,29 @@ In the same terminal:
 uv run provider.py serve
 ```
 
-It prints an `export BELFORT_CLIENT_TOKEN=...` line to run in the client
-terminal, starts a GPU deploy that serves that token's keys, and waits for
-Enter. The deploy stops when you press Enter, or after 30 minutes; you are
-charged for the time it ran, rounded up to 10 minutes.
+The provider mints a client token, writes it to `.client-token`, prints it as an
+`export BELFORT_CLIENT_TOKEN=...` line, and waits for the end client to upload
+its keys. Only then does it start a GPU deploy. The
+deploy stops when you press Enter, or after 30 minutes. You are charged for
+the time it ran, rounded up to 10 minutes. The file is removed when the script
+exits.
 
 ## 4. Run the end client
 
-In a second terminal, in the same directory:
+Run the end client in a second terminal, in the same directory:
 
 ```bash
-export BELFORT_CLIENT_TOKEN=...              # the token from the first terminal
 uv run client.py                              # or: uv run client.py 20
 ```
+
+`client.py` reads the token from `.client-token`. To run it on another machine,
+copy `client.py` and `mnist.py` there, run `uv sync`, and run the `export` line
+the provider printed before `uv run client.py`.
 
 `client.py` encrypts the first test images, has the deploy classify them, and
 prints one line per image, such as `digit 7: predicted 7 in 287 ms`, then the
 number correct. The first run takes about 1.5 minutes to build the encryption
-code, generate keys and upload the evaluation keys. It keeps the secret key's
+code, generate keys and upload the evaluation keys. Then it waits for the deploy. It keeps the secret key's
 seed in a `.secret-seed-*` file, so running it again on the same token reuses
 the key pair and takes about 20 seconds.
 

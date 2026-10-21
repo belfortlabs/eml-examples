@@ -4,3 +4,4 @@ build/
 cyclops-client/
 uv.lock
 .secret-seed-*
+.client-token

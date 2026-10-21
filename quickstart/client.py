@@ -16,7 +16,13 @@ from belfort_ml_client import Client
 from mnist import test_images
 
 count = int(sys.argv[1]) if len(sys.argv) > 1 else 10
-token = os.environ["BELFORT_CLIENT_TOKEN"]
+# The token provider.py serve wrote in this directory wins over an exported
+# one, which may be left over from an earlier run.
+token_file = Path(".client-token")
+if token_file.exists():
+    token = token_file.read_text().strip()
+elif not (token := os.environ.get("BELFORT_CLIENT_TOKEN")):
+    sys.exit("Run `uv run provider.py serve` here first, or set BELFORT_CLIENT_TOKEN.")
 seed_file = Path(f".secret-seed-{hashlib.sha256(token.encode()).hexdigest()[:12]}")
 seed = bytes.fromhex(seed_file.read_text()) if seed_file.exists() else None
 images, labels = test_images()

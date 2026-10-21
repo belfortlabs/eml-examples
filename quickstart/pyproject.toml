@@ -8,8 +8,8 @@ dependencies = [
     # copy (build/examples) to a deployment's release or to local wheels with:
     #   uv run --script scripts/sync_examples.py --stage staging   # or main
     #   uv run --script scripts/sync_examples.py --from-wheels dist/wheels
-    "belfort-ml==0.2.3",
-    "belfort-ml-client==0.2.3",
+    "belfort-ml==0.2.4",
+    "belfort-ml-client==0.2.4",
     "huggingface_hub",
     "numpy",
     "pillow",
@@ -17,7 +17,7 @@ dependencies = [
     "safetensors",
     # belfort-ml and belfort-ml-client pin this at their own version; uv only
     # installs a pre-release (a dev or rc release) the project names itself.
-    "belfort-ml-bucket==0.2.3",
+    "belfort-ml-bucket==0.2.4",
     # Named here so that on Linux it comes from the CPU index below: compiling
     # a model needs no CUDA, and PyPI's Linux build brings several GB of it.
     "torch==2.13.0",
